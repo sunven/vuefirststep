@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h4>原始 HTML</h4>
+        <p>Using mustaches: {{ rawHtml }}</p>
+        <p>Using v-html directive:
+            <span v-html="rawHtml"></span>
+        </p>
+        <hr>
+        <h4>特性</h4>
+        <button v-bind:disabled="isButtonDisabled">Button</button>
+        <hr>
+        <h4>修饰符</h4>
+        <form action="" v-on:submit.prevent="onSubmit">
+            <button type="submit">submit</button>
+        </form>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                isButtonDisabled1: false,
+                rawHtml: '<span style="color:red">123</span>'
+            },
+            methods: {
+                onSubmit: function () {
+                    alert("1");
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

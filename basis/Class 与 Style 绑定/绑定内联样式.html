@@ -30,7 +30,7 @@
     <hr>
     <h4>多重值</h4>
     <div id="app4">
-        <div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'], transform:'rotate(7deg)',style1:false}">abc4</div>
+        <div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }">abc4</div>
     </div>
     <script>
         var app1 = new Vue({
@@ -61,14 +61,17 @@
             el: "#app3",
             data: {
                 style1: {
+                    // border:'15px solid transparent',
                     width: '100px',
-                    height: '100px',
-                    transform: 'rotate(7deg)'
+                    height: '30px',
+                    // 'border-image': 'url(../../image/border.png) 30 30 round'
+                    border:'1px solid #abc',
+                    'border-top-color':'red'
                 }
             }
         });
 
-        var app3 = new Vue({
+        var app4 = new Vue({
             el: "#app4",
             data: {
                 style1: {

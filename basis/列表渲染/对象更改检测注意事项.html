@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(value,key) in userProfile">
+                {{key}}:{{value}}
+            </li>
+        </ul>
+        <button @click="add1">Vue.set</button>
+        <button @click="add2">vm.$set</button>
+        <button @click="add3">Object.assign</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                userProfile: {
+                    name: 'Anika'
+                }
+            },
+            methods: {
+                add1: function () {
+                    Vue.set(vm.userProfile, 'age1', 27)
+                },
+                add2: function () {
+                    vm.$set(vm.userProfile, 'age2', 27)
+                },
+                add3: function () {
+                    vm.userProfile = Object.assign({}, vm.userProfile, {
+                        age3: 27,
+                        favoriteColor: 'Vue Green'
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../js/vue.js"></script>
+    <script type="x/template" id="p-1">
+        <div class="hello">
+
+            //input实时改变wrd的值, 并且会实时改变box里的内容
+            <input type="text" v-model="wrd">
+
+            <box :word.sync="wrd"></box>
+
+        </div>
+    </script>
+    <script type="x/template" id="c-1">
+        <div class="hello">
+            <div class="ipt">
+                <input type="text" v-model="str">
+            </div>
+
+            //word是父元素传过来的
+            <h2>{{ word }}</h2>
+        </div>
+    </script>
+</head>
+
+<body>
+    <div id="app">
+        <p-1>
+            <c-1></c-1>
+        </p-1>
+    </div>
+    <script>
+        Vue.component("p-1", {
+            template: "#p-1",
+            data:{
+                wrd:"p1"
+            }
+        });
+        Vue.component("c-1", {
+            template: "#c-1",
+            data:{
+                str:"c1"
+            }
+        });
+
+        new Vue({
+            el:"#app"
+        });
+    </script>
+</body>
+
+</html>

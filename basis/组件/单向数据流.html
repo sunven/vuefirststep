@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <child message="123"></child>
+        <child1 size=" ABC  ">
+            </child>
+    </div>
+    <script>
+        Vue.component('child', {
+            props: ['message'],
+            data: function () {
+                return {
+                    msg: this.message
+                }
+            },
+            template: '<div>{{ msg }}</div>'
+        });
+
+        Vue.component('child1', {
+            props: ['size'],
+            computed: {
+                normalizedSize: function () {
+                    return this.size.trim().toLowerCase()
+                }
+            },
+            template: '<div>{{ normalizedSize }}</div>'
+        });
+
+        new Vue({
+            el: "#app",
+            data: {
+                message1: "123"
+            }
+        });
+    </script>
+</body>
+
+</html>

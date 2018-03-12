@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="prop-example-2">
+        <input v-model="parentMsg">
+        <br>
+        <child v-bind:my-message="parentMsg"></child>
+        <hr>
+        <h4>把一个对象的所有属性作为 prop 进行传递</h4>
+        <todo-item v-bind="todo"></todo-item>
+        <todo-item v-bind:text="todo.text" v-bind:is-complete="todo.isComplete"></todo-item>
+    </div>
+    <script>
+        Vue.component('child', {
+            props: ['myMessage'],
+            template: '<div>{{ myMessage }}</div>'
+        });
+
+        Vue.component('todo-item', {
+            props: ['text', 'isComplete'],
+            template: '<div>{{ text }}:{{ isComplete }}</div>'
+        });
+
+        new Vue({
+            el: '#prop-example-2',
+            data: {
+                parentMsg: 'Message from parent',
+                todo: {
+                    text: 'Learn Vue',
+                    isComplete: false
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

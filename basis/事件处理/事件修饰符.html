@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 阻止单击事件继续传播 -->
+        <div v-on:click="doThis('div')">
+            <button v-on:click.stop="doThis('a')">阻止单击事件继续传播</button>
+        </div>
+        <hr>
+        <!-- 提交事件不再重载页面 -->
+        <form v-on:submit.prevent="onSubmit" action="http://baidu.com/">
+            <button type="submit">提交事件不再重载页面</button>
+        </form>
+        <!-- 修饰符可以串联 -->
+        <button v-on:click.stop.prevent="doThat">修饰符可以串联</button>
+        <hr>
+        <!-- 只有修饰符 -->
+        <form v-on:submit.prevent action="http://baidu.com/">
+            <button type="submit">只有修饰符</button>
+        </form>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            methods: {
+                doThis: function (message) {
+                    alert(message);
+                },
+                onSubmit: function () {
+                    alert("提交事件不再重载页面");
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="counter-event-example">
+        <p>{{ total }}</p>
+        <button-counter v-on:increment="incrementTotal"></button-counter>
+        <button-counter v-on:increment="incrementTotal"></button-counter>
+    </div>
+    <hr>
+    <h4>载荷 (payload)</h4>
+    <div id="message-event-example" class="demo">
+        <p v-for="msg in messages">{{ msg }}</p>
+        <button-message v-on:message="handleMessage"></button-message>
+    </div>
+    <script>
+        Vue.component('button-counter', {
+            template: '<button v-on:click="incrementCounter">{{ counter }}</button>',
+            data: function () {
+                return {
+                    counter: 0
+                }
+            },
+            methods: {
+                incrementCounter: function () {
+                    this.counter += 1
+                    this.$emit('increment')
+                }
+            },
+        })
+
+        new Vue({
+            el: '#counter-event-example',
+            data: {
+                total: 0
+            },
+            methods: {
+                incrementTotal: function () {
+                    this.total += 1
+                }
+            }
+        })
+
+        Vue.component('button-message', {
+            template: `<div>
+    <input type="text" v-model="message" />
+    <button v-on:click="handleSendMessage">Send</button>
+  </div>`,
+            data: function () {
+                return {
+                    message: 'test message'
+                }
+            },
+            methods: {
+                handleSendMessage: function () {
+                    this.$emit('message', {
+                        message: this.message
+                    })
+                }
+            }
+        })
+
+        new Vue({
+            el: '#message-event-example',
+            data: {
+                messages: []
+            },
+            methods: {
+                handleMessage: function (payload) {
+                    this.messages.push(payload.message)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

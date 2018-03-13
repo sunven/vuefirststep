@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <template id="app-layout">
+            <div class="container">
+                <header>
+                    <slot name="header"></slot>
+                </header>
+                <main>
+                    <slot></slot>
+                </main>
+                <footer>
+                    <slot name="footer"></slot>
+                </footer>
+            </div>
+        </template>
+        <app-layout>
+            <h1 slot="header">这里可能是一个页面标题</h1>
+
+            <p>主要内容的一个段落。</p>
+            <p>另一个主要段落。</p>
+
+            <p slot="footer">这里有一些联系信息</p>
+        </app-layout>
+    </div>
+    <script>
+        Vue.component('app-layout', {
+            // 有效，因为是在正确的作用域内
+            template: '#app-layout'
+        });
+
+        new Vue({
+            el: "#app"
+        });
+    </script>
+</body>
+
+</html>

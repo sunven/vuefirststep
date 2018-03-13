@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="parent">
+        <user-profile ref="profile"></user-profile>
+        <button @click="doThis">访问子组件实例</button>
+        <hr>
+        <h4>异步组件</h4>
+        <async-example></async-example>
+        <hr>
+        <h4>内联模板</h4>
+        <my-component inline-template>
+            <div>
+                <p>这些将作为组件自身的模板。</p>
+                <p>而非父组件透传进来的内容。</p>
+            </div>
+        </my-component>
+        <hr>
+        <h4>对低开销的静态组件使用 v-once</h4>
+        <terms-of-service></terms-of-service>
+    </div>
+    <script>
+        Vue.component('user-profile', {
+            template: '<p>子组件引用{{msg}}</p>',
+            data: function () {
+                return {
+                    msg: "123"
+                }
+            }
+        });
+
+        Vue.component('async-example', function (resolve, reject) {
+            setTimeout(function () {
+                // 将组件定义传入 resolve 回调函数
+                resolve({
+                    template: '<div>I am async!</div>'
+                })
+            }, 1000)
+        })
+
+        Vue.component('my-component', {});
+
+        Vue.component('terms-of-service', {
+            template: '\
+    <div v-once>\
+      <h1>Terms of Service</h1>\
+      ...很多静态内容...\
+    </div>\
+  '
+        })
+
+        var parent = new Vue({
+            el: '#parent',
+            methods: {
+                doThis: function () {
+                    // 访问子组件实例
+                    var child = parent.$refs.profile
+                    alert(child);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

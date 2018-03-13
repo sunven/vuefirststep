@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <child-component v-show="someChildProperty1"></child-component>
+    </div>
+    <script>
+        Vue.component('child-component', {
+            // 有效，因为是在正确的作用域内
+            template: '<div v-show="someChildProperty">Child</div>',
+            data: function () {
+                return {
+                    someChildProperty: false
+                }
+            }
+        });
+
+        new Vue({
+            el: "#app",
+            data: {
+                someChildProperty1: false
+            }
+        });
+    </script>
+</body>
+
+</html>

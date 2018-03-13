@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <template id="child">
+            <div class="child">
+                <slot text="hello from child"></slot>
+            </div>
+        </template>
+        <!--  -->
+        <template id="my-awesome-list">
+            <ul>
+                <slot name="item" v-for="item in items" :text="item.text">
+                    <!-- 这里写入备用内容 -->
+                </slot>
+            </ul>
+        </template>
+        <div class="parent">
+            <child>
+                <template slot-scope="props">
+                    <span>hello from parent</span>
+                    <span>{{ props.text }}</span>
+                </template>
+            </child>
+        </div>
+        <hr>
+        <my-awesome-list :items="items">
+            <!-- 作用域插槽也可以是具名的 -->
+            <li slot="item" slot-scope="props" class="my-fancy-item">
+                {{ props.text }}
+            </li>
+        </my-awesome-list>
+    </div>
+    <script>
+        Vue.component('child', {
+            // 有效，因为是在正确的作用域内
+            template: '#child'
+        });
+
+        Vue.component('my-awesome-list', {
+            template: '#my-awesome-list',
+            data: function () {
+                return {
+                    items: [{
+                        text: "a"
+                    }, {
+                        text: "2"
+                    }, {
+                        text: "3"
+                    }]
+                }
+            }
+        });
+
+        new Vue({
+            el: "#app",
+            data: {
+                items: []
+            }
+        });
+    </script>
+</body>
+
+</html>
